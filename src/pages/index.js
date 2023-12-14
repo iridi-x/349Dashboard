@@ -16,6 +16,7 @@ import Map from "components/Map";
 
 import axios from 'axios';
 
+
 const LOCATION = { lat: 0, lng: 0 };   // middle of the world
   // { lat: 38.9072, lng: -77.0369 };  // DC
 
@@ -90,6 +91,7 @@ const MapEffect = ({ markerRef, setLoading }) => {
     
 
     const fetchData = async () => {
+      setLoading(true);
       console.log('about to call axios to get the data...');
 
       const options = {
@@ -152,7 +154,7 @@ const MapEffect = ({ markerRef, setLoading }) => {
     };
 
     fetchData();
-    
+
     //set interval to get data ---- 5min
     const intervalId = setInterval(fetchData, 300000);
     return ()=> clearInterval(intervalId);

@@ -12,7 +12,8 @@ import { Scatter } from 'react-chartjs-2';
 
 function Scatterplot({covidData}) {
 
-  console.log("chart Data: ", covidData);
+  // debug statement
+  // console.log("chart Data: ", covidData);
 
   ChartJS.register(LinearScale, PointElement, LineElement, Tooltip, Legend);
 
