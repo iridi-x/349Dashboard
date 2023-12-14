@@ -13,6 +13,14 @@ const ENDPOINTS = [
     path: '/countries',
     isDefault: true,
   },
+  {
+    id: 'states',
+    path: '/states',
+  },
+  {
+    id: 'continents',
+    path: '/continents',
+  },
 ];
 
 const defaultState = {

@@ -1,13 +1,13 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Helmet } from "react-helmet";
 import L from "leaflet";
 import { Marker, useMap } from "react-leaflet";
 import { commafy, friendlyDate } from 'lib/util';
 
+import Scatterplot from 'components/scatterplot.js';
 
 import { useTracker } from "hooks";
-
 import { promiseToFlyTo, getCurrentLocation } from "lib/map";
 
 import Layout from "components/Layout";
@@ -17,7 +17,7 @@ import Map from "components/Map";
 import axios from 'axios';
 
 const LOCATION = { lat: 0, lng: 0 };   // middle of the world
-  // { lat: 38.9072, lng: -77.0369 };  // in Los Angeles
+  // { lat: 38.9072, lng: -77.0369 };  // DC
 
 const CENTER = [LOCATION.lat, LOCATION.lng];
 const DEFAULT_ZOOM = 2;
@@ -69,23 +69,31 @@ function countryPointToLayer (feature = {}, latlng) {
   });
 }
 
-const MapEffect = ({ markerRef }) => {
+//todo: State point to layer?{}
+
+const MapEffect = ({ markerRef, setLoading }) => {
   console.log('in MapEffect...');
   const map = useMap();
 
   useEffect(() => {
     if (!markerRef.current || !map) return;
 
-    (async function run() {
+
+    // ZOOM event handler, may not be needed
+    const handleZoomEnd = () => {
+      const zoomLevel = map.getZoom();
+      console.log('zoom has ended!', zoomLevel)
+      // setZoomLevel(zoomLevel);
+    };
+    map.on('zoomend', handleZoomEnd);
+    // end zoom event handler
+
+    const fetchData = async () => {
       console.log('about to call axios to get the data...');
 
       const options = {
         method: 'GET',
         url: 'https://disease.sh/v3/covid-19/countries',
-        // params: {country: 'China'},    // for one country -- if blank will get all countries
-        // headers: {
-        //   'Disease.sh': 'disease.sh'
-        // }
       };
       
       let response; 
@@ -95,15 +103,14 @@ const MapEffect = ({ markerRef }) => {
         console.error(error);  
         return; 
       }
-      console.log(response.data);
-      // const rdr = response.data.response;    // for rapidapi
-      // const data = rdr;
-
+      console.log('response.data: ', response.data);
+      
+      
       const data = response.data;     // for disease.sh
       const hasData = Array.isArray(data) && data.length > 0;
       if (!Array.isArray(data)) { console.log('not an array!'); return; }
       if (data.length === 0) { console.log('data length is === 0'); }
-
+      
       if (!hasData) { console.log('No data, sorry!');  return; }
 
       const geoJson = {
@@ -129,18 +136,21 @@ const MapEffect = ({ markerRef }) => {
       const geoJsonLayers = new L.GeoJSON(geoJson, { 
         pointToLayer: countryPointToLayer
       });
+      
       var _map = markerRef.current._map;
       geoJsonLayers.addTo(_map);
-
-      const location = await getCurrentLocation().catch(() => LOCATION);
-
-      console.log(location);
       
 
+      const location = await getCurrentLocation().catch(() => LOCATION);
+      
       setTimeout(async () => {
         await promiseToFlyTo(map, { zoom: ZOOM, center: location, });
       }, timeToZoom);
-    })();
+
+      setLoading(false); //set loading state
+    };
+
+    fetchData();
   }, [map, markerRef]);
 
   return null;
@@ -151,17 +161,33 @@ MapEffect.propTypes = {
 };
 
 const IndexPage = () => {
-  console.log('in IndexPage, before useRef');
+  const [isLoading, setLoading] = useState(true);
   const markerRef = useRef();
+
 
   const { data: stats = {} } = useTracker({
     api: 'all',
   });
 
-  const { data: countries = [] } = useTracker({
+  const { data: countries = {} } = useTracker({
     api: 'countries',
   });
-console.log('in IndexPage, after useRef and useTracker');
+
+  const { data: states = {} } = useTracker({
+    api: 'states',
+  });
+
+  const { data: continents = {} } = useTracker({
+    api: 'continents',
+  });
+
+
+  // Use this to check if the site is working and the data is being pulled in correctly
+  console.log('States:', states);
+  console.log('countries', countries );
+
+
+  // console.log('in IndexPage, after useRef and useTracker');
 
 
   const mapSettings = {
@@ -221,6 +247,30 @@ console.log('in IndexPage, after useRef and useTracker');
     },
   ];
 
+  if (isLoading) {
+    return (
+      <Layout pageName="home">
+      <Helmet><title>Home Page</title></Helmet>
+      {/* do not delete MapEffect and Marker
+             with current code or axios will not run */}
+      <Map {...mapSettings}>
+       <MapEffect markerRef={markerRef} setLoading={setLoading}/>            
+       <Marker ref={markerRef} position={CENTER} />
+      </Map>
+        <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          minHeight: "100vh",
+      }}>
+            Loading the data{" "}
+            {console.log("loading state")}
+        </div>
+  </Layout>
+    );
+}
 
   return (
     <Layout pageName="home">
@@ -261,7 +311,10 @@ console.log('in IndexPage, after useRef and useTracker');
       
 
       <Container type="content" className="text-center home-start">
-        <h2>Still Getting Started?</h2>
+        <h2>Charts and Data!</h2>
+        <Scatterplot covidData={continents} />
+              {/* <BarChart data={countries} />; */}
+
       </Container>
     </Layout>
   );

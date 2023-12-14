@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "axios": "^1.6.2",
+    "chart.js": "^4.4.1",
     "cypress": "^10.1.0",
     "gatsby": "^4.16.0",
     "gatsby-plugin-manifest": "^4.16.0",
@@ -19,10 +20,12 @@
     "gatsby-plugin-sass": "^5.16.0",
     "gatsby-source-filesystem": "^4.16.0",
     "gatsby-source-graphql": "^4.16.0",
+    "husky": "^8.0.3",
     "leaflet": "^1.8.0",
     "path": "^0.12.7",
     "prop-types": "^15.8.1",
     "react": "^18.1.0",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.1.0",
     "react-helmet": "^6.1.0",
     "react-icons": "^4.4.0",
@@ -30,7 +33,7 @@
     "sass": "^1.52.3"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.18.2",
+    "@babel/eslint-parser": "^7.23.3",
     "@babel/preset-react": "^7.17.12",
     "babel-jest": "^28.1.1",
     "babel-preset-gatsby": "^2.16.0",
@@ -39,9 +42,9 @@
     "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-react": "^7.30.0",
     "eslint-plugin-react-hooks": "^4.5.0",
-    "husky": "4.3.8",
+    "husky": "^8.0.0",
     "jest": "^28.1.1",
-    "lint-staged": "^13.0.1",
+    "lint-staged": "^15.2.0",
     "prettier": "^2.7.0",
     "prettier-eslint": "^15.0.1",
     "prettier-eslint-cli": "^6.0.1",
@@ -70,17 +73,13 @@
     "serve": "gatsby serve",
     "test": "jest --config ./config/jest.config.js",
     "test:e2e:open": "start-server-and-test develop http://localhost:8000 cy:open",
-    "test:e2e:run": "start-server-and-test develop http://localhost:8000 cy:run"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
+    "test:e2e:run": "start-server-and-test develop http://localhost:8000 cy:run",
+    "prepare": "husky install"
   },
   "lint-staged": {
-    "**/*.js": [
-      "yarn format:nopath",
-      "yarn lint"
+    "*.js": [
+      "eslint --fix",
+      "git add"
     ]
   },
   "homepage": "https://gatsby-starter-leaflet.netlify.app/",
