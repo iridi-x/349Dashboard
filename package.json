@@ -1,12 +1,12 @@
 {
-  "name": "gatsby-starter-leaflet",
-  "title": "Gatsby Starter Leaflet",
-  "description": "A Gatsby starter with Leafet!",
+  "name": "covid-dashboard-349",
+  "title": "349 Covid DashBoard",
+  "description": "A Covid19 Dashboard based on a Gatsby starter with Leafet!",
   "version": "0.3.0",
   "author": {
-    "name": "Colby Fayock",
-    "email": "hello@colbyfayock.com",
-    "url": "https://twitter.com/colbyfayock"
+    "name": "Group 201",
+    "email": "example@eaxample.com",
+    "url": "https://csufullerton.instructure.com/groups/1051590/users"
   },
   "dependencies": {
     "axios": "^1.6.2",
@@ -81,12 +81,12 @@
       "eslint --fix"
     ]
   },
-  "homepage": "https://gatsby-starter-leaflet.netlify.app/",
+  "homepage": "https://github.com/iridi-x/349Dashboard",
   "repository": {
     "type": "git",
-    "url": "https://github.com/colbyfayock/gatsby-starter-leaflet"
+    "url": "https://github.com/iridi-x/349Dashboard"
   },
   "bugs": {
-    "url": "https://github.com/colbyfayock/gatsby-starter-leaflet/issues"
+    "url": "https://github.com/iridi-x/349Dashboard/issues"
   }
 }

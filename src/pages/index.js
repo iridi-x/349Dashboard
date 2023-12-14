@@ -87,6 +87,7 @@ const MapEffect = ({ markerRef, setLoading }) => {
     };
     map.on('zoomend', handleZoomEnd);
     // end zoom event handler
+    
 
     const fetchData = async () => {
       console.log('about to call axios to get the data...');
@@ -151,7 +152,13 @@ const MapEffect = ({ markerRef, setLoading }) => {
     };
 
     fetchData();
+    
+    //set interval to get data ---- 5min
+    const intervalId = setInterval(fetchData, 300000);
+    return ()=> clearInterval(intervalId);
+
   }, [map, markerRef]);
+
 
   return null;
 };

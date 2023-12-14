@@ -23,11 +23,24 @@ const SecondPage = () => {
         <p>
           <a href={companyUrl}>View on Github</a>
         </p>
+        <div>
 
         <h2>Created By</h2>
+          <p>Tyler Carlsen</p>
+          <p>Jonathan Covarrubias </p>
+          <p>Angel Villa</p>
+          <p>Peter Nguyen</p>
+          <p>Huy Hoang</p>
         <p>
           <a href={authorUrl}>{authorName}</a>
         </p>
+        </div>
+        <div>
+          <h2>Data Sources: </h2>
+          <p> 
+            <a href="https://disease.sh/">Disease.sh</a>
+          </p>
+        </div>
       </Container>
     </Layout>
   );
