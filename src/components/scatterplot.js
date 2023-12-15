@@ -21,14 +21,16 @@ function Scatterplot({covidData}) {
     scales: {
       y: {
         beginAtZero: true,
-        scaleLabel: {
+        title: {
           display: true,
-          labelString: 'X-Axis Label', // X-axis label
+          text: 'Number of Deaths',
         },
       },
       x: {
-        title: "Cases",
-        
+        title: {
+          display: true,
+          text: 'Total Confirmed Cases',
+        },
       },
     },
   };
@@ -47,7 +49,12 @@ function Scatterplot({covidData}) {
     })),
   };
 
-    return <Scatter options={options} data={data} />;
+    return (
+      <div>
+      <h3>Cases and Deaths per Continent</h3>
+    <Scatter options={options} data={data} />
+      </div>
+    )
 }
 
 export default Scatterplot;

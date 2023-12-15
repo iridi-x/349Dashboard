@@ -21,6 +21,10 @@ const ENDPOINTS = [
     id: 'continents',
     path: '/continents',
   },
+  {
+    id: 'vaccine-coverage',
+    path: '/vaccine/coverage?lastdays=30&fullData=false'
+  }
 ];
 
 const defaultState = {

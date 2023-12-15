@@ -6,6 +6,7 @@ import { Marker, useMap } from "react-leaflet";
 import { commafy, friendlyDate } from 'lib/util';
 
 import Scatterplot from 'components/scatterplot.js';
+import LineChart from "../components/vaccineLineChart";
 
 import { useTracker } from "hooks";
 import { promiseToFlyTo, getCurrentLocation } from "lib/map";
@@ -190,10 +191,15 @@ const IndexPage = () => {
     api: 'continents',
   });
 
+  const { data: vaccineCoverage = {} } = useTracker({
+    api: 'vaccine-coverage',
+  });
+
 
   // Use this to check if the site is working and the data is being pulled in correctly
   console.log('States:', states);
   console.log('countries', countries );
+  console.log('vaccine data: ', vaccineCoverage);
 
 
   // console.log('in IndexPage, after useRef and useTracker');
@@ -320,8 +326,9 @@ const IndexPage = () => {
       
 
       <Container type="content" className="text-center home-start">
-        <h2>Charts and Data!</h2>
+        <h1>Charts and Data!</h1>
         <Scatterplot covidData={continents} />
+        <LineChart covidData={vaccineCoverage}/>
               {/* <BarChart data={countries} />; */}
 
       </Container>
