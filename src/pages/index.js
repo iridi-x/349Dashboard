@@ -7,6 +7,8 @@ import { commafy, friendlyDate } from 'lib/util';
 
 import Scatterplot from 'components/scatterplot.js';
 import LineChart from "../components/vaccineLineChart";
+import BarChart from "../components/barChart.js";
+import PieChart from "../components/pieChart.js";
 
 import { useTracker } from "hooks";
 import { promiseToFlyTo, getCurrentLocation } from "lib/map";
@@ -15,7 +17,7 @@ import Layout from "components/Layout";
 import Container from "components/Container";
 import Map from "components/Map";
 
-import axios from 'axios';
+import axios, { all } from 'axios';
 
 
 const LOCATION = { lat: 0, lng: 0 };   // middle of the world
@@ -195,9 +197,10 @@ const IndexPage = () => {
     api: 'vaccine-coverage',
   });
 
-
   // Use this to check if the site is working and the data is being pulled in correctly
+  console.log('Stats:', stats);
   console.log('States:', states);
+  console.log('Continents:', continents);
   console.log('countries', countries );
   console.log('vaccine data: ', vaccineCoverage);
 
@@ -329,8 +332,8 @@ const IndexPage = () => {
         <h1>Charts and Data!</h1>
         <Scatterplot covidData={continents} />
         <LineChart covidData={vaccineCoverage}/>
-              {/* <BarChart data={countries} />; */}
-
+        <BarChart covidData={continents}/>
+        <PieChart covidData={stats}/>
       </Container>
     </Layout>
   );

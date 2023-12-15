@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+
 import axios from 'axios';
 
 const API_HOST = 'https://disease.sh/v3/covid-19';
