@@ -1,54 +1,28 @@
-# 🍃 Gatsby Leaflet Starter
+# 🍃 Covid 19 Dashboard based on 🍃 Gatsby Leaflet Starter
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-Jumpstart your next Gatsby mapping project with Leaflet!
-
 ## ⚡ Quick Deploy
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/colbyfayock/gatsby-starter-leaflet) [![Deploy with Vercel Now](https://zeit.co/button)](https://vercel.com/import/project?template=https://github.com/colbyfayock/gatsby-starter-leaflet)
+(Run "yarn install && yarn start")
 
+(Navigate to http://localhost:8000/)
 
-## 🧰 What This Includes
-* [Yarn](https://yarnpkg.com/en/)
-* [Gatsby](https://www.gatsbyjs.org/)
-* [Sass](https://sass-lang.com)
-* [React Helmet](https://github.com/nfl/react-helmet)
-* [Resolve Src](https://github.com/alampros/gatsby-plugin-resolve-src)
-* [Leaflet](https://leafletjs.com/)
-* [React Leaflet](https://react-leaflet.js.org)
+## What's inside
+(This dashboard contains 4 charts and 3 tables of recent covid data)
+- [x] Worldwide Data (Confirmed, Deaths & Recovered Cases)
+- Confirmed cases map with markers for each country. Clicking a marker will show the number of confirmed cases in that country.
+- Number of deaths and cases on each continent
+- Vaccination percentage of States in the US
+The data is sourced from https://disease.sh/ which provides real time information about
+the spread of COVID-19 around the world.
 
-## 🚀 Getting Started
+The Data will refresh every 5 minutes. 
 
 ### Requirements
 * [Gatsby CLI](https://www.npmjs.com/package/gatsby-cli)
 * [Yarn](https://yarnpkg.com/en/)
 
-### Quick Start
-Run the following in your favorite terminal:
-```
-gatsby new my-map-app https://github.com/colbyfayock/gatsby-starter-leaflet
-```
-
-### Starting from Scratch
-* Set up Yarn: https://yarnpkg.com/lang/en/docs/install/#mac-stable)[https://yarnpkg.com/lang/en/docs/install/
-* Install the Gatsby CLI globally:
-```
-yarn global add gatsby-cli
-```
-* Inside the directory of your choice, scaffold a new Gatsby site:
-```
-gatsby new my-map-app https://github.com/colbyfayock/gatsby-starter-leaflet
-```
-For example, if I want my installation in `~/Code/new-gatsby-site`, I would navigate to `~/Code` and run:
-```
-gatsby new new-gatsby-site https://github.com/colbyfayock/gatsby-starter-leaflet
-```
-* Navigate to your new directory and run:
-```
-yarn develop
-```
-* You should now be running a new Gatsby site locally! 🎉
 
 ## 🗺 Resources to Learn About Mapping
 * [Mapping with React Leaflet](https://egghead.io/playlists/mapping-with-react-leaflet-e0e0?af=atzgap) (egghead.io)
