@@ -10,6 +10,7 @@ import LineChart from "../components/vaccineLineChart";
 import BarChart from "../components/barChart.js";
 import PieChart from "../components/pieChart.js";
 import ContinentTable from "../components/ContinentTable.js";
+import StateTableVD from "../components/StateTableVD.js";
 
 import { useTracker } from "hooks";
 import { promiseToFlyTo, getCurrentLocation } from "lib/map";
@@ -198,12 +199,19 @@ const IndexPage = () => {
     api: 'vaccine-coverage',
   });
 
+  const { data: states1Day = {} } = useTracker({
+    api: 'states1Day',
+  });
+
+ 
+
   // Use this to check if the site is working and the data is being pulled in correctly
   console.log('Stats:', stats);
   console.log('States:', states);
+  console.log('States1Day', states1Day);
   console.log('Continents:', continents);
-  console.log('countries', countries );
-  console.log('vaccine data: ', vaccineCoverage);
+  console.log('Countries', countries );
+  console.log('Vaccine Data: ', vaccineCoverage);
 
 
   // console.log('in IndexPage, after useRef and useTracker');
@@ -336,6 +344,7 @@ const IndexPage = () => {
         <BarChart covidData={continents}/>
         <PieChart covidData={stats}/>
         <ContinentTable covidData={continents} />
+        <StateTableVD covidData={states} covidData1={states1Day}/>
       </Container>
     </Layout>
   );

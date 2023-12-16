@@ -25,6 +25,10 @@ const ENDPOINTS = [
   {
     id: 'vaccine-coverage',
     path: '/vaccine/coverage?lastdays=30&fullData=false'
+  },
+  {
+    id: 'states1Day',
+    path: '/vaccine/coverage/states?lastdays=1&fullData=false'
   }
 ];
 
