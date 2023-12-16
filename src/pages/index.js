@@ -11,6 +11,7 @@ import BarChart from "../components/barChart.js";
 import PieChart from "../components/pieChart.js";
 import ContinentTable from "../components/ContinentTable.js";
 import StateTableVD from "../components/StateTableVD.js";
+import CountryTable from "../components/countryTable.js";
 
 import { useTracker } from "hooks";
 import { promiseToFlyTo, getCurrentLocation } from "lib/map";
@@ -345,6 +346,7 @@ const IndexPage = () => {
         <PieChart covidData={stats}/>
         <ContinentTable covidData={continents} />
         <StateTableVD covidData={states} covidData1={states1Day}/>
+        <CountryTable covidData={countries}/>
       </Container>
     </Layout>
   );
