@@ -55,22 +55,27 @@ const columns = [
   {
     Header: 'Population',
     accessor: 'population',
-    Cell: ({ value }) => value ? value.toLocaleString() : 'error!',
+    Cell: ({ value }) => value ? value.toLocaleString() : 'N/A',
   },
   {
     Header: 'Cases',
     accessor: 'cases',
-    Cell: ({ value }) => value ? value.toLocaleString() : 'error!',
+    Cell: ({ value }) => value ? value.toLocaleString() : 'N/A',
   },
   {
     Header: 'Deaths',
     accessor: 'deaths',
-    Cell: ({ value }) => value ? value.toLocaleString() : 'error!',
+    Cell: ({ value }) => value ? value.toLocaleString() : 'N/A',
   },
   {
     Header: 'Vaccinations',
     accessor: 'vaccinations',
-    Cell: ({ value }) => value ? value.toLocaleString() : 'error!',
+    Cell: ({ value }) => value ? value.toLocaleString() : 'N/A',
+  },
+  {
+    Header: 'Vaccination %',
+    accessor: 'vaccinationPercentage',
+    Cell: ({ value }) => value ? `${value.toFixed(2)}%` : 'N/A',
   },
 ];
 
@@ -95,8 +100,14 @@ const StateTableVD = ({ covidData, covidData1 }) => {
     })
     .filter((row) => Object.values(row).some((value) => value !== 0));
 
+  // Calculate vaccination percentage for each row
+  const dataWithPercentage = mergedData.map((row) => ({
+    ...row,
+    vaccinationPercentage: (row.vaccinations / row.population) * 100,
+  }));
+
   // Limit the number of rows to 25
-  const limitedData = mergedData.slice(0, 25);
+  const limitedData = dataWithPercentage.slice(0, 25);
 
   // Render the table using limitedData
   const {
@@ -109,7 +120,8 @@ const StateTableVD = ({ covidData, covidData1 }) => {
 
   return (
     <Styles>
-      <h2>State Population, Vaccinations, and Deaths</h2>
+      <h2>State Vaccinations and Deaths</h2>
+      <p>Values greater than 100% suggest multiple doses per person</p>
       <div className="table-container">
         <table {...getTableProps()}>
           <thead>
