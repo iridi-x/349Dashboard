@@ -9,6 +9,7 @@ import Scatterplot from 'components/scatterplot.js';
 import LineChart from "../components/vaccineLineChart";
 import BarChart from "../components/barChart.js";
 import PieChart from "../components/pieChart.js";
+import ContinentTable from "../components/ContinentTable.js";
 
 import { useTracker } from "hooks";
 import { promiseToFlyTo, getCurrentLocation } from "lib/map";
@@ -334,6 +335,7 @@ const IndexPage = () => {
         <LineChart covidData={vaccineCoverage}/>
         <BarChart covidData={continents}/>
         <PieChart covidData={stats}/>
+        <ContinentTable covidData={continents} />
       </Container>
     </Layout>
   );
