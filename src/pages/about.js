@@ -30,7 +30,6 @@ const SecondPage = () => {
           <p>Jonathan Covarrubias </p>
           <p>Angel Villa</p>
           <p>Peter Nguyen</p>
-          <p>Huy Hoang</p>
         <p>
           <a href={authorUrl}>{authorName}</a>
         </p>
